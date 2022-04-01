@@ -1,0 +1,121 @@
+
+ * utilizando un número de tarjeta, podemos determinar algunos de los futuros presentados en una tarjeta de crédito.
+ * Por ejemplo, el primer dígito del número puede indicarnos rápidamente la marca de la tarjeta y, a partir de ahí,
+ * podemos inferir la longitud del número de tarjeta y la ubicación y longitud de su código de seguridad.
+
+
+
+* 
+ * american_express : {
+ *      "first digit" : "3"
+ *      "card number length": "15"
+ *      "Security code lenght" : "4"
+ *      "security code location" : "front"
+ * }
+ * visa : {
+ *      "first digit" : "4"
+ *      "card number length": "16"
+ *      "Security code lenght" : "3"
+ *      "security code location" : "back"
+ * }
+ * masterd_card : {
+ *      "first digit" : "5"
+ *      "card number length": "16"
+ *      "Security code lenght" : "3"
+ *      "security code location" : "back"
+ * }
+ * 
+* 
+ * 
+ * Con esta información en mente, para configurar validaciones para un formulario de tarjeta de crédito, vas a crear
+ * una clase CardNumberAnalyzer que recibe un parámetro de entrada de cadena llamado cardNumber.
+ * 
+ * debe definir una función getCardDetails() que devuelva un objeto con esta estructura:
+ * you must define a getCardDetails() function that returns an object with this structure:
+ * 
+ * {
+ * 
+ *  //information about the card
+ *   card:{
+ * 
+ *  //the card number,without spaces
+ *   number: '4111111111111111'
+ *  
+ * //the first six digits of the card number,without spaces
+ *   bin:'411111' 
+ * 
+ * //the cards brand,inferred from the number's first digit
+ *   brand:'visa'
+ * 
+ * //the exprected card number length for this brand
+ *   expectedLength : 16
+ * //whether the provided card number is valid or not
+ *   isValid : true,
+ * },
+ * 
+ * //information about the security code
+ * securityCode:{
+ * //the location of the security code (front o back)
+ * location:'back'
+ * 
+ * //the expected length of the security code for this card brand
+ * expectedLength: 3
+ * }
+ *      
+ * }
+ * 
+ * 
+ * en la creación de instancias, debe verificar ese número de tarjeta:
+ *
+ * -tiene solo números y/o espacios
+ * -su primer dígito es 3,4 o 5.
+ *
+ * si esta verificación falla, debe arrojar un error:
+ *
+ * -Para la primera condición, un error con el mensaje No es un número de tarjeta válido
+ * -Para la segunda condición, un error con el mensaje marca de tarjeta desconocida
+ *
+ * También definirá una función hasValidCardNumberLength() que devolverá verdadero o falso dependiendo de si las validaciones
+ * para el número de tarjeta dado pase o no.
+ * Por ejemplo, uno podría argumentar que 3123 0000 1111 2222 es una tarjeta de crédito American Express válida, pero estas tarjetas usan 15 números en lugar de 16.
+ *
+ * ejemplo
+ * 
+ *  //invalid credit card
+ * 
+ * //this should throw a "not a valid card number" errro,const badCreditCard = new CardNumberAnalyzer ('8000 0000 0000)
+ * 
+ * //valid credit card
+ * 
+ * const creditCard = new CardNumberAnalyzer ('4111 1111 1111 1111')
+ * 
+ * isValid will be true, because the number has 16 digits
+ * 
+ * const isValid = creditCard.hasValidNumberLength()
+ * 
+ * const cardDetails = creditCard.getCardDetails()
+ * 
+ * cardDetails will contain :
+ * 
+ * {
+ * card:{
+ *  number : '4111111111111111'
+ *  bin: '411111'
+ *  brand: 'visa'
+ *  expectedLenght: 16
+ *  isValid : true,
+ * }
+ * securityCode : {
+ * location: 'back'
+ * expectedLength : 3
+ * 
+ * }
+ * 
+ * 
+ * }
+ * 
+ * 
+ * 
+ * 
+ * }
+ * 
